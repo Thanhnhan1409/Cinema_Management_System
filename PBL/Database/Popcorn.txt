@@ -1,0 +1,20 @@
+Popcorn1
+Sweat Popcorn
+59000
+0
+Popcorn2
+Salt Popcorn
+59000
+0
+Popcorn3
+Caramel Popcorn
+74000
+0
+Popcorn4
+Cheese Popcorn
+74000
+0
+Popcorn5
+Milktea Popcorn
+70000
+0

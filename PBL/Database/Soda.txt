@@ -1,0 +1,16 @@
+Soda1
+Pepsi
+38000
+14
+Soda2
+Coca Cola
+38000
+7
+Soda3
+7Up
+35000
+0
+Soda4
+Mirinda
+35000
+0
