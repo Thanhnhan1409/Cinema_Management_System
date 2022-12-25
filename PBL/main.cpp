@@ -3,8 +3,6 @@
 using namespace std;
 void Menu()
 {
-    while (true)
-    {
         system("cls");
         GuestMenu::Menu("Database\\Menu.txt");
         cout << endl;
@@ -31,7 +29,7 @@ void Menu()
             system("cls");
             cout << "\n\n";
             string s = StaffMenu::logIn();
-            if (s == "Menu") continue;
+            if (s == "Menu") GuestMenu::Display();
             if (s == "Exit") return;
             break;
         }
@@ -47,12 +45,11 @@ void Menu()
             break;
         }
         }
-    }
 }
 int main() 
 {
+
     Menu();
     system("pause");
     return 0;
 }
-// debug ngang movie manager delete movie

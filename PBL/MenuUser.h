@@ -8,15 +8,12 @@
 #include <iomanip>
 #include "Ticket.h"
 #include "vector.h"
-//#include <vector>
 #include "Cinema.h"
-#include "Popcorn.h"
-#include "Soda.h"
 #include "ManageProduct.h"
 #include "StaffManage.h"
-#include <set>
 #include "Ticket.h"
 class MovieManager;
+
 class GuestMenu
 {
 public:

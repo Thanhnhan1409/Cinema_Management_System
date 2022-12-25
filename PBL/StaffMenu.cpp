@@ -11,7 +11,8 @@ void StaffMenu::Display() {
     int c;
     MovieManager listMovies;
     listMovies.readData("Database\\Movie\\movie.txt");
-    while (true)
+    bool tr = true;
+    while (tr)
     {
     StaffMenu::Menu();
     cout << "\t\tEnter your selection: ";
@@ -21,6 +22,8 @@ void StaffMenu::Display() {
         c = Library::fail("\t\tEnter your selection");
 
     }
+    if (c >= 0 || c <= 7)
+        tr = false;
     cout << endl;
     switch (c) 
     {
@@ -40,232 +43,250 @@ void StaffMenu::Display() {
         }
         case 3: 
         {
-            while(true)
+            bool t1 = true;
+            while(t1)
             {
-            system("cls");
-            cout << endl;
-            GuestMenu::Menu("Database\\Movie\\MovieManage.txt");
-            cout << endl;
-            cout << "\t\tEnter your selection: ";
-            int c = 0;
-            cin >> c;
-            if (cin.fail())
-            {
-                c = Library::fail("\t\tEnter your selection");
-
-            }
-            switch (c)
-            {
-                case 1: 
+                system("cls");
+                cout << endl;
+                GuestMenu::Menu("Database\\Movie\\MovieManage.txt");
+                cout << endl;
+                cout << "\t\tEnter your selection: ";
+                int c = 0;
+                cin >> c;
+                if (c >= 0 || c <= 7)
+                    t1 = false;
+                if (cin.fail())
                 {
-                    Movie m = listMovies.createMovie();
-                    listMovies.addMovie(m);
-                    cout << endl;
-                    cout << "\n\t\t1. Back to Menu.\n";
-                    cout << "\t\t2. Exit.\n";
-                    cout << "\t\tEnter your selection: ";
-                    int c = 0;
-                    cin >> c;
-                    if (cin.fail())
-                    {
-                        c = Library::fail("\t\tEnter your selection");
+                    c = Library::fail("\t\tEnter your selection");
 
-                    }
-                    while ((c <= 0 || c > 2)) {
-                        Library::printError("Please select from the list");
-                        cin >> c;
-                    }
-                    if (c == 1) {
-                        StaffMenu::Display();
-                    }
-                    if (c == 2) {
-                        return;
-                    }
-                    break;
                 }
-                case 2: 
+                switch (c)
                 {
-                    system("cls");
-                    Movie m;
-                    int n = listMovies.getLength();
-                    listMovies.show();
-                    int c = 0;
-                    cout << endl;
-                    cout << "         " << n + 1 << ". Back to Menu." << endl;
-                    cout << "         " << n + 2 << ".Exit." << endl;
-                    cout << "\n         Enter your selection: ";
-                    cin >> c;
-                    if (cin.fail()) {
-                        c = Library::fail("\nEnter your selection: ");
+                    case 1: 
+                    {
+                        Movie m = listMovies.createMovie();
+                        listMovies.addMovie(m);
+                        cout << endl;
+                        cout << "\n\t\t1. Back to Menu.\n";
+                        cout << "\t\t2. Exit.\n";
+                        cout << "\t\tEnter your selection: ";
+                        int c = 0;
+                        cin >> c;
+                        if (cin.fail())
+                        {
+                            c = Library::fail("\t\tEnter your selection");
+
+                        }
+                        while ((c <= 0 || c > 2)) {
+                            Library::printError("Please select from the list");
+                            cin >> c;
+                        }
+                        if (c == 1) {
+                            StaffMenu::Display();
+                        }
+                        if (c == 2) {
+                            return;
+                        }
+                        break;
                     }
-                    while ((c <= 0 || c > n + 2)) {
-                        cout << "Please select from the list: ";
+                    case 2: 
+                    {
+                        system("cls");
+                        Movie m;
+                        int n = listMovies.getLength();
+                        listMovies.show();
+                        int c = 0;
+                        cout << endl;
+                        cout << "\t         " << n + 1 << ". Back to Menu." << endl;
+                        cout << "\t         " << n + 2 << ".Exit." << endl;
+                        cout << "\n\t         Enter your selection: ";
                         cin >> c;
                         if (cin.fail()) {
                             c = Library::fail("\nEnter your selection: ");
                         }
-                    }
-                    if (c == n + 1) {
-                        StaffMenu::Display();
-                    }
-                    if (c == n + 2) {
-                        return;
-                    }
-                    m = listMovies[c - 1];
-                    listMovies.Remove(m.getId());
-                    Library::printSuccess("\t\tDone!");
-                    cout << endl;
-                    cout << "         1. Back to Menu.\n";
-                    cout << "         2. Exit.\n";
-                    cout << "         Enter your selection: ";
-                    c = 0;
-                    cin >> c;
-                    if (cin.fail())
-                    {
-                        c = Library::fail("         Enter your selection");
-
-                    }
-                    while ((c <= 0 || c > 2)) {
-                        Library::printError("\t\tPlease select from the list");
+                        while ((c <= 0 || c > n + 2)) {
+                            cout << "Please select from the list: ";
+                            cin >> c;
+                            if (cin.fail()) {
+                                c = Library::fail("\nEnter your selection: ");
+                            }
+                        }
+                        if (c == n + 1) {
+                            StaffMenu::Display();
+                        }
+                        if (c == n + 2) {
+                            return;
+                        }
+                        m = listMovies[c - 1];
+                        listMovies.Remove(m.getId());
+                        Library::printSuccess("\t\tDone!");
+                        cout << endl;
+                        cout << "\t         1. Back to Menu.\n";
+                        cout << "\t         2. Exit.\n";
+                        cout << "\t         Enter your selection: ";
+                        c = 0;
                         cin >> c;
+                        if (cin.fail())
+                        {
+                            c = Library::fail("         Enter your selection");
+
+                        }
+                        while ((c <= 0 || c > 2)) {
+                            Library::printError("\t\tPlease select from the list");
+                            cin >> c;
+                        }
+                        if (c == 1) {
+                            StaffMenu::Display();
+                        }
+                        if (c == 2) {
+                            return;
+                        }
+                        break;
                     }
-                    if (c == 1) {
-                        StaffMenu::Display();
-                    }
-                    if (c == 2) {
-                        return;
-                    }
-                    break;
-                }
-                case 3:
-                {
-                    system("cls");
-                    Movie m;
-                    int n = listMovies.getLength();
-                    listMovies.show();
-                    int c = 0;
-                    cout << endl;
-                    cout << "         " << n + 1 << ". Back to Menu.\n";
-                    cout << "         " << n + 2 << ".Exit.\n";
-                    cout << "\n          Enter your selection: ";
-                    cin >> c;
-                    if (cin.fail()) {
-                        c = Library::fail("\nEnter your selection: ");
-                    }
-                    while ((c <= 0 || c > n + 2)) {
-                        cout << "Please select from the list: ";
+                    case 3:
+                    {
+                        system("cls");
+                        Movie m;
+                        int n = listMovies.getLength();
+                        listMovies.show();
+                        int c = 0;
+                        cout << endl;
+                        cout << "\t         " << n + 1 << ". Back to Menu.\n";
+                        cout << "\t         " << n + 2 << ".Exit.\n";
+                        cout << "\n\t          Enter your selection: ";
                         cin >> c;
                         if (cin.fail()) {
                             c = Library::fail("\nEnter your selection: ");
                         }
-                    }
-                    if (c == n + 1) {
-                        GuestMenu::Display();
-                        return;
-                    }
-                    if (c == n + 2) {
-                        return;
-                    }
-                    m = listMovies[c - 1];
-                    system("cls");
-                    cout << endl;
-                    listMovies.update(m.getId());
-                    cout << "\n\t\t1. Back to Menu.\n";
-                    cout << "\t\t2. Exit.\n";
-                    cout << "\t\tEnter your selection: ";
-                    c = 0;
-                    cin >> c;
-                    if (cin.fail())
-                    {
-                        c = Library::fail("\t\tEnter your selection");
-
-                    }
-                    while ((c <= 0 || c > 2)) {
-                        Library::printError("\t\tPlease select from the list");
-                        // cout << "Please select from the list: ";
+                        while ((c <= 0 || c > n + 2)) {
+                            cout << "Please select from the list: ";
+                            cin >> c;
+                            if (cin.fail()) {
+                                c = Library::fail("\nEnter your selection: ");
+                            }
+                        }
+                        if (c == n + 1) {
+                            GuestMenu::Display();
+                            return;
+                        }
+                        if (c == n + 2) {
+                            return;
+                        }
+                        m = listMovies[c - 1];
+                        system("cls");
+                        cout << endl;
+                        listMovies.update(m.getId());
+                        cout << "\n\t\t    1. Back to Menu.\n";
+                        cout << "\t\t    2. Exit.\n";
+                        cout << "\t\t    Enter your selection: ";
+                        c = 0;
                         cin >> c;
-                    }
-                    if (c == 1) {
-                        StaffMenu::Display();
-                    }
-                    if (c == 2) {
-                        return;
-                    }
-                    break;
-                }
-                case 4:
-                {
-                    system("cls");
-                    MovieManager a;
-                    a.search();
-                    cout << "\n\t\t1. Back to Menu.\n";
-                    cout << "\t\t2. Exit.\n";
-                    cout << "\t\tEnter your selection: ";
-                    c = 0;
-                    cin >> c;
-                    if (cin.fail())
-                    {
-                        c = Library::fail("\t\tEnter your selection");
+                        if (cin.fail())
+                        {
+                            c = Library::fail("\t\tEnter your selection");
 
+                        }
+                        while ((c <= 0 || c > 2)) {
+                            Library::printError("\t\tPlease select from the list");
+                            // cout << "Please select from the list: ";
+                            cin >> c;
+                        }
+                        if (c == 1) {
+                            StaffMenu::Display();
+                        }
+                        if (c == 2) {
+                            return;
+                        }
+                        break;
                     }
-                    while ((c <= 0 || c > 2)) {
-                        Library::printError("\t\tPlease select from the list");
-                        // cout << "Please select from the list: ";
-                        cin >> c;
-                    }
-                    if (c == 1) {
-                        StaffMenu::Display();
-                    }
-                    if (c == 2) {
-                        return;
-                    }
-                    break;
-                    break;
-                }
-                case 5: {
-                    listMovies.showRevenues();
-                    cout << "\n\t\t1. Back to Menu.\n";
-                    cout << "\t\t2. Exit.\n";
-                    cout << "\t\tEnter your selection: ";
-                    int c = 0;
-                    cin >> c;
-                    if (cin.fail())
+                    case 4:
                     {
-                        c = Library::fail("\t\tEnter your selection");
-
-                    }
-                    while ((c <= 0 || c > 2)) {
-                        Library::printError("\t\tPlease select from the list");
-                        //cout << "Please select from the list: ";
+                        system("cls");
+                        MovieManager a;
+                        a.search();
+                        cout << "\n\t\t1. Back to Menu.\n";
+                        cout << "\t\t2. Exit.\n";
+                        cout << "\t\tEnter your selection: ";
+                        c = 0;
                         cin >> c;
+                        if (cin.fail())
+                        {
+                            c = Library::fail("\t\tEnter your selection");
+
+                        }
+                        while ((c <= 0 || c > 2)) {
+                            Library::printError("\t\tPlease select from the list");
+                            // cout << "Please select from the list: ";
+                            cin >> c;
+                        }
+                        if (c == 1) {
+                            StaffMenu::Display();
+                        }
+                        if (c == 2) {
+                            return;
+                        }
+                        break;
+                        break;
                     }
-                    if (c == 1) {
+                    case 5: {
+                        cout << "\t\t1. Sort ascending.\n";
+                        cout << "\t\t2. Sort descending.\n";
+                        cout << "\t\tEnter your selection: ";
+                        int c = 0;
+                        cin >> c;
+                        while ((c <= 0 || c > 2)) {
+                            cout << "\t\tPlease select from the list: ";
+                            cin >> c;
+                        }
+                        system("cls");
+                        if (c == 1) {
+                            listMovies.RevenueSort(0, listMovies.getLength() - 1, Library::Ascending);
+                        }
+                        if (c == 2) {
+                            listMovies.RevenueSort(0, listMovies.getLength() - 1, Library::Descending);
+                        }
+                        listMovies.showRevenues();
+                        cout << endl;
+                        cout << "\t\t1. Back to Menu.\n";
+                        cout << "\t\t2. Exit.\n";
+                        cout << "\t\tEnter your selection: ";
+                        c = 0;
+                        cin >> c;
+                        while ((c <= 0 || c > 2)) {
+                            cout << "\t\tPlease select from the list: ";
+                            cin >> c;
+                        }
+                        if (c == 1) {
+                            StaffMenu::Display();
+                        }
+                        if (c == 2) {
+                            return;
+                        }
+                        break;
+                    }
+
+                    case 6:
+                    {
+                        Ticket::Reset();
+                        Library::printSuccess("\t\tDone!");
+                        break;
+                    }
+                    case 7: {
                         StaffMenu::Display();
+                        break;
                     }
-                    if (c == 2) {
-                        return;
+                    case 8:
+                    {
+                        cout << "\t\tGoodbye! Thanks for comming. ";
+                        break;
                     }
-                    break;
+                    default:
+                    {
+                        Library::printError("\t\tSelect from 1 to 7");
+                        system("pause");
+                        break;
+                    }
                 }
-                case 6: {
-                    StaffMenu::Display();
-                    break;
-                }
-                case 7:
-                {
-                    cout << "\t\tGoodbye! Thanks for comming. ";
-                    return;
-                    break;
-                }
-                default:
-                {
-                    Library::printError("\t\tSelect from 1 to 7");
-                    system("pause");
-                    break;
-                }
-            }
-            //StaffMenu::Display();
-            //break;
         }
         break;
         }
@@ -275,7 +296,8 @@ void StaffMenu::Display() {
             ManageProduct sd;
             pr.readData("Database\\Popcorn.txt");
             sd.readData("Database\\Soda.txt");
-            while (true)
+            bool t2 = true;
+            while (t2)
             {
 
             system("cls");
@@ -285,6 +307,8 @@ void StaffMenu::Display() {
             cout << "\t\tPlease Enter your choice: ";
             int cp;
             cin >> cp;
+            if (cp >= 0 || cp <= 12)
+                t2 = false;
             if (cin.fail())
             {
                 cp = Library::fail("\t\tEnter your selection");
@@ -302,6 +326,7 @@ void StaffMenu::Display() {
                         StaffMenu::Display();
                     system("cls");
                     pr.showProduct(id3);
+                    system("pause");
                     break;
                 }
                 break;
@@ -316,6 +341,7 @@ void StaffMenu::Display() {
                         StaffMenu::Display();
                     system("cls");
                     sd.showProduct(id3);
+                    system("pause");
                     break;
                 }
                 break;
@@ -325,6 +351,7 @@ void StaffMenu::Display() {
                 system("cls");
                 pr.add();
                 Library::printSuccess("\t\tDone!");
+                system("pause");
                 break;
             }
             case 4:
@@ -332,6 +359,7 @@ void StaffMenu::Display() {
                 system("cls");
                 sd.add();
                 Library::printSuccess("\t\tDone!");
+                system("pause");
                 break;
             }
             case 5:
@@ -343,6 +371,7 @@ void StaffMenu::Display() {
                     if (id3 == "-1")
                         StaffMenu::Display();
                     Library::printSuccess("\t\tDone!");
+                    system("pause");
                     pr.Remove(id3);
                     break;
                 }
@@ -360,18 +389,21 @@ void StaffMenu::Display() {
                         StaffMenu::Display();
                     break;
                 }
+                system("pause");
                 break;
             }
             case 7:
             {
                 system("cls");
                 pr.search();
+                system("pause");
                 break;
             }
             case 8:
             {
                 system("cls");
                 sd.search();
+                system("pause");
                 break;
             }
             case 9:
@@ -386,6 +418,7 @@ void StaffMenu::Display() {
                         StaffMenu::Display();
                     break;
                 }
+                system("pause");
                 break;
             }
             case 10:
@@ -401,17 +434,12 @@ void StaffMenu::Display() {
                     break;
                 }
                 break;
+                system("pause");
             }
             case 11:
             {
-                Ticket::Reset();
-                Library::printSuccess("\t\tDone!");
-                break;
-            }
-            case 12:
-            {
                 system("cls");
-                cout << "\t\t\t\t\Revenues:\n" << endl;
+                cout << "\t\t\t\t\     Revenues\n" << endl;
                 ManageProduct a,b;
                 a.readData("Database\\Popcorn.txt");
                 b.readData("Database\\Soda.txt");
@@ -438,9 +466,10 @@ void StaffMenu::Display() {
                 if (c == 2) {
                     return;
                 }
+                system("pause");
                 break;
             }
-            case 13:
+            case 12:
             {
                 StaffMenu::Display();
                 break;
@@ -571,9 +600,9 @@ void StaffMenu::getInfoMovie(MovieManager listMovies) {
     int n = listMovies.getLength();
     listMovies.show();
     int c = 0;
-    cout << "         " << n + 1 << ". Back to Menu.\n";
-    cout << "         " << n + 2 << ".Exit.";
-    cout << "\nEnter your selection: ";
+    cout << "\t         " << n + 1 << ". Back to Menu.\n";
+    cout << "\t         " << n + 2 << ". Exit." << endl;
+    cout << "\n\t\tEnter your selection: ";
     cin >> c;
     if (cin.fail()) {
         c = Library::fail("\nEnter your selection: ");

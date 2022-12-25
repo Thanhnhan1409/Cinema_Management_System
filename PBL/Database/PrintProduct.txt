@@ -5,7 +5,7 @@
                            Id: Soda1
                            Name: Pepsi
                            Price: 38.000
-                           Sales: 1
+                           Sales: 32
 
              ------------------------------------------
-             Total:	   93.000
+             Total:	   146.000

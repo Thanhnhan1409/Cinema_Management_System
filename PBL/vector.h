@@ -42,11 +42,13 @@ vector<T>::~vector()
 {
     delete[] array;
 }
+
 template <typename T>
 T& vector<T>:: operator[](int i)
 {
     return array[i];
 }
+
 template <typename T>
 void vector<T>::push_back(T data)
 {
@@ -63,16 +65,24 @@ void vector<T>::push_back(T data)
     array[current] = data;
     current++;
 }
+
 template <typename T>
 void vector<T>::pop()
 {
-    return current--;
+    if (current == 0)
+    {
+        cout << "Empty!" << endl;
+        return;
+    }
+    current--;
 }
+
 template <typename T>
 int vector<T>::size()
 {
     return current;
 }
+
 template <typename T>
 bool vector<T>::search(T a)
 {

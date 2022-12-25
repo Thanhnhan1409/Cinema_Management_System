@@ -54,13 +54,18 @@ void Product::setSales(int sales)
 {
     this->Sales = sales;
 }
-void Product::Show()
+void Product::upSale(int sale) 
+{
+    this->Sales += sale;
+}
+
+void Product::Show(int adr)
 {
     cout << "             -----------------------------------------" << endl;
     cout << "                           Id: " << Id << endl;
     cout << "                           Name: " << Name << endl;
     cout << "                           Price: " << Library::printRevenues(Price,".") << endl;
-    cout << "                           Sales: " << Sales << endl;
+    cout << "                           Sales: " << adr << endl;
     cout << endl;
 }
 

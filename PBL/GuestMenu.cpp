@@ -24,7 +24,8 @@ void GuestMenu::getInfoMovie(MovieManager listMovies) {
         return;
     }
     m = listMovies.getMovie(id);
-    while (true)
+    bool t = true;
+    while (t == true)
     {
         system("cls");
         m.infMovie();
@@ -33,6 +34,8 @@ void GuestMenu::getInfoMovie(MovieManager listMovies) {
         cout << "\n\t\tEnter your selection: ";
         int c = 0;
         cin >> c;
+        if (c == 1 || c == 2)
+            t = false;
         switch (c)
         {
         case 1:
@@ -43,13 +46,13 @@ void GuestMenu::getInfoMovie(MovieManager listMovies) {
         case 2:
         {
             return;
-            break;
         }
         default:
-            Library::printError("Please select from the list!");
+            c = Library::fail("Enter your selection");
             system("pause");
             break;
         }
+        
     }
 }
 
@@ -59,7 +62,8 @@ void GuestMenu::Display()
     int c;
     MovieManager listMovies;
     listMovies.readData("Database\\Movie\\movie.txt");
-    while (true)
+    bool t = true;
+    while (t == true)
     {
         cout << endl;
         GuestMenu::Menu("Database\\GuestMenu.txt");
@@ -71,12 +75,14 @@ void GuestMenu::Display()
             c = Library::fail("Enter your selection");
 
         }
-
+        if (c >= 1 && c <= 3)
+            t = false;
         switch (c)
         {
             case 1:
             {
                 getInfoMovie(listMovies);
+                listMovies.readData("Database\\Movie\\movie.txt");
                 break;
             }
             case 2:
@@ -103,14 +109,12 @@ void GuestMenu::Display()
             }
         }
     }
-    system("pause");
 }
 
 string GuestMenu::buyTicketsMovie()
 {
     system("cls");
-    Product* a = new Product[20];
-    Product* b = new Product[20];
+    int a[20], b[20];
     ManageProduct pop;
     ManageProduct s;
     string id2;
@@ -174,6 +178,7 @@ string GuestMenu::buyTicketsMovie()
     string p = Cinema::getSeat(k, m, tm);
     if (p == "Menu" || p == "Exit") return p;
     r1 = r2 = r3 = v1 = v2 = v3 = 0;
+    bool t = true;
     do
     {
         cout << "\t\tWould you like to use more popcorn or soda?" << endl;
@@ -222,10 +227,9 @@ string GuestMenu::buyTicketsMovie()
                 }
                 cout << endl;
             }
+            
+            a[i] = adr;
             i++;
-            a[i] = s.getProduct(id1);
-            a[i].setSales(adr);
-            v += a[i].getPrice() * a[i].getSales();
             s.updateSale("Database\\Soda.txt", id1, adr);
             break;
         }
@@ -245,20 +249,16 @@ string GuestMenu::buyTicketsMovie()
                 cin >> adr;
                 cout << endl;
             }
+            
+            b[j] = adr;
             j++;
-            b[j].setId(pop.getProduct(id2).getId());
-            b[j].setName(pop.getProduct(id2).getName());
-            b[j].setPrice(pop.getProduct(id2).getPrice());
-            b[j].setSales(adr);
-            b[j].setPrice(pop.getProduct(id2).getPrice());
-            int am = pop.getProduct(id2).getSales();
-            v += b[j].getSales() * b[j].getPrice();
-            s.updateSale("Database\\Popcorn.txt", id1, adr);
+            pop.updateSale("Database\\Popcorn.txt", id2, adr);
             break;
         }
         case 3:
         {
             cout << "\t\tThanks!" << endl;
+            t = false;
             break;
         }
         default:
@@ -269,13 +269,13 @@ string GuestMenu::buyTicketsMovie()
             break;
         }
         }
-    } while (true);
+    } while (t == true);
     if (true) 
     {
         if (i == 0 && j == 0)
         {
             system("pause");
-            return "Exit";
+            return "Menu";
         }
         system("cls");
         ofstream filename("Database\\PrintProduct.txt");
@@ -294,17 +294,17 @@ string GuestMenu::buyTicketsMovie()
         filename << "             -----------------------------------------" << endl;
         while (i > 0)
         {
-            a[i].Show();
-            a[i].PrintPr(filename);
-            val += a[i].getSales() * a[i].getPrice();
-            i--;
+            --i;
+            s[i].Show(a[i]);
+            s[i].PrintPr(filename);
+            val +=a[i] * s[i].getPrice();
         }
         while (j > 0)
         {
-            b[j].Show();
-            b[j].PrintPr(filename);
-            val += b[j].getSales() * b[j].getPrice();
-            j--;
+            --j;
+            pop[j].Show(b[j]);
+            pop[j].PrintPr(filename);
+            val +=b[j] * pop[j].getPrice();
         }
         cout << "             ------------------------------------------" << endl;
         cout << "             Price:\t   " <<Library::printRevenues(val, ".")<< endl;
@@ -315,20 +315,10 @@ string GuestMenu::buyTicketsMovie()
         filename << "             ------------------------------------------" << endl;
         filename << "             Total:\t   " << Library::printRevenues(stoi(p)+val, ".") << endl;
         filename.close();
-        ofstream file;
-        ofstream file1;
-        file.open("Database\\Soda.txt", ios_base::out);
-        file1.open("Database\\Popcorn.txt", ios_base::out);
-        s.WriteFile(file);
-        file.close();
-        pop.WriteFile(file1);
-        file1.close();
-        delete[] a;
-        delete[] b;
         cout << endl;
         system("pause");
-        return "Exit";
+        return "Menu";
     }
-    return "Exit";
+    return "Menu";
 }
 

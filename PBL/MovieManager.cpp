@@ -82,11 +82,11 @@ void MovieManager::show()
     int n = this->length;
     int c = 0;
     string l[20];
-    cout << "     --------------------------------\n";
-    Library::printLineColor("             LIST FILM:\n", 4);
-    cout << "     --------------------------------\n\n";
+    cout << "\t     --------------------------------\n";
+    Library::printLineColor("\t                LIST FILM\n", 4);
+    cout << "\t     --------------------------------\n\n";
     for (int i = 0; i < n; i++) {
-        cout << "         " << i + 1 << ". " << (*(movie + i)).getName() << endl;
+        cout << "\t         " << i + 1 << ". " << (*(movie + i)).getName() << endl;
     }
 }
 Movie MovieManager::getMovie(string id) {
@@ -113,11 +113,11 @@ void MovieManager::update(string id) {
             cout << "\t\t    2. Update Price." << endl;
             cout << "\t\t    3. Back to Menu." << endl;
             int k;
-            cout << "\t\t    Enter your choie: ";
+            cout << "\n\t\t    Enter your choice: ";
             cin >> k;
             if (cin.fail())
             {
-                k= Library::fail("\t\tEnter your selection");
+                k= Library::fail("\t\t    Enter your selection");
 
             }
             switch (k)
@@ -287,15 +287,16 @@ void MovieManager::update(string id) {
 
                 }
             (movie+i)->setCine(string(1, cine));
+            Library::printSuccess("\t\t    Done!");
             break;
             }
             case 2:
             {
-                cout << "\t\t Enter price: ";
+                cout << "\t\t    Enter price: ";
                 int p;
                 cin >> p;
                 (movie + i)->setPrice(p);
-                Library::printSuccess("Done!");
+                Library::printSuccess("\t\t    Done!");
                 break;
             }
             case 3:
@@ -440,18 +441,18 @@ string MovieManager::getId()
     int n = this->length;
     show();
     int c = 0;
-	cout << "         " << n + 1 << ". Back to Menu.\n";
-	cout << "         " << n + 2 << ".Exit.";
-	cout << "\nEnter your selection: ";
+	cout << "\t         " << n + 1 << ". Back to Menu.\n";
+	cout << "\t         " << n + 2 << ". Exit.";
+	cout << "\n\n\t         Enter your selection: ";
 	cin >> c;
 	if (cin.fail()) {
-		c=Library::fail("\nEnter your selection: ");
+		c=Library::fail("\n         Enter your selection: ");
 	}
 	while ((c <= 0 || c > n + 2)) {
-		cout << "Please select from the list: ";
+		cout << "\n         Please select from the list: ";
 		cin >> c;
 		if (cin.fail()) {
-			c=Library::fail("\nEnter your selection: ");
+			c=Library::fail("\n         Enter your selection: ");
 		}
 	}
     if (c == n + 1) return "Menu";
@@ -483,12 +484,20 @@ void MovieManager::RevenueSort(int l, int r, bool (*CompFunc)(int, int)) {
 void MovieManager::showRevenues() {
     system("cls");
     cout << "\n\t\t\t\t\tBox office revenues:\n\n";
+    long long s=0;
     for (int i = 0; i < this->length; i++) {
         cout << "\t\t" << left << setw(55) << (*(movie + i)).getName() << ": " << setw(20);
         string m = Library::printRevenues((*(movie + i)).getSales(), ".");
         Library::printLineColor(m, 2);
         cout << " vnd." << endl;
+        s += (*(movie + i)).getSales();
     }
+    cout << endl;
+    cout << "\t\t" << left << setw(55) << "Total" << ": " << setw(20);
+    string m = Library::printRevenues(s, ".");
+    Library::printLineColor(m, 2);
+    cout << " vnd." << endl;
+
 }
 Movie MovieManager::createMovie() {
     int year, duration, price;

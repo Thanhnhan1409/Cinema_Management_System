@@ -105,3 +105,9 @@ void  Library::Toupper(char str[]) {
             str[i] = str[i] + 32;
     }
 }
+bool Library::Ascending(int l, int r) {
+    return l > r;
+}
+bool Library::Descending(int l, int r) {
+    return r > l;
+}

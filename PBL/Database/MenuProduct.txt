@@ -1,6 +1,6 @@
                
                 ------------------------------------------------
-                                PRODUCTMANAGER
+                                PRODUCT MANAGER
                 ------------------------------------------------
 
                              1.  Show Popcorn's List.      
@@ -13,8 +13,7 @@
                              8.  Search Soda.
                              9.  Update Popcorn.
                              10. Update Soda.
-			     11. Reset Id's Ticket.
-			     12. Show Revenues.
-                             13. Back to Menu.
+			     11. Show Revenues.
+                             12. Back to Menu.
                 
                 ------------------------------------------------

@@ -43,24 +43,7 @@ Product &ManageProduct::operator[](const int i)
     else
         return a;
 }
-/*void ManageProduct::showProduct(string id)
-{
-    for (int i = 0; i < this->length; i++) 
-    {
-        if ((*(this->p + i)).getId() == id) 
-        {
-            
-            cout << endl;
-            cout << "          ----------------------------------------------" << endl;
-            cout << "                       INFORMATION OF PRODUCT           " << endl;
-            cout << "          ----------------------------------------------" << endl;
-            cout << "                   Id: " << (*(this->p + i)).getId() << endl;
-            cout << "                   Name: " << (*(this->p + i)).getName() << endl;
-            cout << "                   Price: " << (*(this->p + i)).getPrice() << endl;
-            cout << "                   Sales: " << (*(this->p + i)).getSales() << endl;
-        }
-    }
-}*/
+
 void ManageProduct::add() 
 {
     cout << "\n\t\t\tEnter the product: " << endl;
@@ -160,10 +143,10 @@ void ManageProduct::WriteFile(ofstream& filename)
     }
     for (int i = 0; i < this->length ; i++)
     {
-        filename << p[i].getId() << endl;
-        filename << p[i].getName() << endl;
-        filename << to_string(p[i].getPrice()) << endl;
-        filename << to_string(p[i].getSales()) << endl;
+        filename << this->p[i].getId() << endl;
+        filename << this->p[i].getName() << endl;
+        filename << to_string(this->p[i].getPrice()) << endl;
+        filename << to_string(this->p[i].getSales()) << endl;
     }
     
 }
@@ -212,7 +195,7 @@ void ManageProduct::search()
         Library::Toupper(Name);
         if (strstr(Name,a))
         {
-            (p + i)->Show();
+            (p + i)->Show((p+i)->getSales());
             k = 0;
         }
     }
@@ -233,11 +216,11 @@ void ManageProduct::update(string id)
     system("cls");
     for (int i = 0; i < this->length; i++)
     {
-        cout << "\n\t\t   ------------------------------------" << endl;
-        cout << "\t\t\t\t" <<(*(p + i)).getId() << endl;
-        cout << "\t\t   ------------------------------------"   << endl;
         if (id == (*(p + i)).getId())
         {
+            cout << "\n\t\t   ------------------------------------" << endl;
+            cout << "\t\t\t\t" <<(*(p + i)).getId() << endl;
+            cout << "\t\t   ------------------------------------"   << endl;
             cout << "\n\t\t\t    1. Update Id." << endl;
             cout << "\t\t\t    2. Update Name." << endl;
             cout << "\t\t\t    3. Update Price." << endl;
@@ -272,8 +255,9 @@ void ManageProduct::update(string id)
                 {
                     cout << "\t\t Name: ";
                     string r;
-                    fflush(stdin);
-                    cin >> r;
+                    //fflush(stdin);
+                    cin.ignore();
+                    getline(cin, r);
                     p->setName(r);
                     break;
                 }
@@ -296,7 +280,7 @@ void ManageProduct::update(string id)
                     if (cin.fail()) {
                         Library::fail("\t\tSale");
                     }
-                    p->setPrice(r);
+                    p->setSales(r);
                     break;
                 }
                 case 5:
@@ -306,7 +290,8 @@ void ManageProduct::update(string id)
                 }
                 case 6:
                 {
-                    GuestMenu::Menu("Database\\MenuProduct.txt");
+                    system("cls");
+                    StaffMenu::Display();
                     break;
                 }
                 default:
@@ -349,13 +334,21 @@ void ManageProduct::updateSale(string filename, string id, int x) {
     }
 }
 void ManageProduct::showRevenues() {
+    cout << endl;
+    long long s=0;
     for (int i = 0; i < this->length; i++) {
         cout << "\t\t" << left << setw(30) << (*(p + i)).getName() << ": " << setw(15);
         int r = (*(p + i)).getSales() * (*(p + i)).getPrice();
         string m = Library::printRevenues(r, ".");
         Library::printLineColor(m, 2);
         cout << " vnd." << endl;
+        s += r;
     }
+    cout << endl;
+    cout << "\t\t" << left << setw(30) << "Total" << ": " << setw(15);
+    string m = Library::printRevenues(s, ".");
+    Library::printLineColor(m, 2);
+    cout << " vnd." << endl;
     cout << endl;
 }
 void ManageProduct::show()

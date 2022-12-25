@@ -1,20 +1,20 @@
 Popcorn1
-Sweat Popcorn
-59000
-0
+Mango Popcorn
+40000
+16
 Popcorn2
 Salt Popcorn
 59000
-0
+30
 Popcorn3
 Caramel Popcorn
 74000
-0
+100
 Popcorn4
 Cheese Popcorn
 74000
-0
+108
 Popcorn5
-Milktea Popcorn
-70000
-0
+BananaPopcorn
+76000
+9

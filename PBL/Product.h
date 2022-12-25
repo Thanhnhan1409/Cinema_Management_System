@@ -28,9 +28,9 @@ public:
     void setName(string);
     void setPrice(int);
     void setSales(int);
-
+    void upSale(int);
     friend istream& operator >> (istream&, Product&);
 
-    void Show();
+    void Show(int );
     void PrintPr(ofstream&);
 };

@@ -6,7 +6,7 @@
 using namespace std;
 class Cinema
 {
-protected:
+private:
     string IdCine;
     string Film;
     int NumSeatAvailable;

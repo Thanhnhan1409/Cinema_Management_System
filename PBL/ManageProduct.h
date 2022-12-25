@@ -1,8 +1,6 @@
 #pragma once
 #include "Product.h"
 #include "Ticket.h"
-#include "Popcorn.h"
-#include "Soda.h"
 #include "MenuUser.h"
 #include "Manage.h"
 

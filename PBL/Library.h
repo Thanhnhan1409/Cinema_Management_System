@@ -16,5 +16,7 @@ public:
     static int fail(string);
     static string printRevenues(long long, string);
     static void Toupper(char[]);
+    static bool Ascending(int, int);
+    static bool Descending(int, int);
 };
 
